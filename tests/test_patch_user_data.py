@@ -41,8 +41,8 @@ class TestPatchUserData:
         email = response.json()["user"]["email"]
         access_token = get_access_token
         updated_data = {"email": email}
-        response = ApiMethods.patch_user(access_token, updated_data)
-        assert response.status_code == 403 and response.json()["success"] is False and response.json()["message"] == "User with such email already exists"
+        response_1 = ApiMethods.patch_user(access_token, updated_data)
+        assert response_1.status_code == 403 and response_1.json()["success"] is False and response_1.json()["message"] == "User with such email already exists"
 
     @allure.title('Получение кода 401 при изменении имени незалогиненого зарегистрированного пользователя.')
     def test_path_name_not_logined_user_get_401(self, get_create_user):
