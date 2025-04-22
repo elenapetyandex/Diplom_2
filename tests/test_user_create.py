@@ -1,10 +1,8 @@
-from time import sleep
 
 import allure
 
 from api_methods import ApiMethods
 import pytest
-
 
 from data import Data
 

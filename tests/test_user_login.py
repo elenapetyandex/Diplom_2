@@ -28,7 +28,7 @@ class TestUserLogin:
             "password": self.password
         }
         response_login = ApiMethods.login_user(body_1)
-        print(response.status_code)
+
         assert response_login.status_code == 200 and response_login.json()["success"] is True and response_login.json()["accessToken"] and response_login.json()["refreshToken"]
 
     def test_user_not_registrated_login_get_401(self):
@@ -52,7 +52,7 @@ class TestUserLogin:
             "password": self.password
         }
         response_login = ApiMethods.login_user(body_1)
-        print(response.status_code)
+
         assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
 
     @allure.title('Получение кода 401 при логине зарегистрированного пользователя с пустым полем password.')
@@ -68,7 +68,7 @@ class TestUserLogin:
             "password": None
         }
         response_login = ApiMethods.login_user(body_1)
-        print(response.status_code)
+
         assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
 
     @allure.title('Получение кода 401 при логине зарегистрированного пользователя с пустыми полями.')
@@ -84,9 +84,31 @@ class TestUserLogin:
             "password": None
         }
         response_login = ApiMethods.login_user(body_1)
-        print(response.status_code)
+
         assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
 
+    @allure.title('Получение кода 200 при логине зарегистрированного пользователя после изменения почты.')
+    def test_user_login_after_patch_email_get_200(self):
+        body = {
+            "email": self.email,
+            "password": self.password,
+            "name": self.name
+        }
+        ApiMethods.create_user(body)
+        body_1 = {
+            "email": self.email,
+            "password": self.password
+        }
+        response_login = ApiMethods.login_user(body_1)
+        token = response_login.json()["accessToken"]
+        new_email = {"email": Data.user_email}
+        response_patch = ApiMethods.patch_user(token, new_email)
+        body_2 = {
+            "email": new_email["email"],
+            "password": self.password
+        }
+        response_login_2 = ApiMethods.login_user(body_2)
+        assert  response_login_2.status_code == 200 and response_login.json()["success"] is True and response_login.json()["accessToken"] and response_login.json()["refreshToken"]
 
 
     @classmethod
@@ -98,6 +120,6 @@ class TestUserLogin:
         response_login = ApiMethods.login_user(body_1)
         if response_login.status_code == 200:
             token = response_login.json()["accessToken"]
-            response_delete = ApiMethods.delete_user(token)
-            print(response_delete.status_code)
+            ApiMethods.delete_user(token)
+
 

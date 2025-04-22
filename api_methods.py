@@ -17,12 +17,6 @@ class ApiMethods:
 
 
     @staticmethod
-    @allure.step('Получить новый accessToken')
-    def get_new_access_token(refresh_token):
-        return requests.post(urls.refresh_token_url, headers={'Authorization': refresh_token})
-
-
-    @staticmethod
     @allure.step('Удалить пользователя')
     def delete_user(access_token):
         return requests.delete(urls.delete_user, headers={'Authorization': access_token})
@@ -41,3 +35,4 @@ class ApiMethods:
     @allure.step('Получить заказ конкретного пользователя')
     def get_order_list(access_token):
         return requests.get(urls.create_order, headers={'Authorization': access_token})
+

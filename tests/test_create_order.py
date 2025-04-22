@@ -53,7 +53,7 @@ class TestCreateOrder:
         response = ApiMethods.create_order(token, order_data)
         assert not response.status_code == 200
 
-    @allure.title('Получение кода 400 при создании заказа без передачи параметра авторизации методом POST /api/orders')
+    @allure.title('Получение кода 400 при создании заказа без передачи параметра авторизации  методом POST /api/orders')
     def test_create_order_with_correct_ingredients_by_not_registrated_user_not_created(self):
         token = None
         order_data = {

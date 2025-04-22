@@ -14,14 +14,28 @@ def get_create_user():
         "name": name
     }
     response = ApiMethods.create_user(body)
+
     yield response
     body_1 = {
         "email": email,
         "password": password
     }
     response_login = ApiMethods.login_user(body_1)
-    token = response_login.json()["accessToken"]
-    ApiMethods.delete_user(token)
+    if response_login.status_code == 200:
+        token = response_login.json().get("accessToken")
+        ApiMethods.delete_user(token)
+
+
+
+
+
+
+
+
+
+
+
+
 
 @pytest.fixture
 def get_access_token():
@@ -39,6 +53,9 @@ def get_access_token():
         "password": password
     }
     response_login = ApiMethods.login_user(body_1)
-    token = response_login.json()["accessToken"]
+    token = response_login.json().get("accessToken")
     yield token
     ApiMethods.delete_user(token)
+
+
+
