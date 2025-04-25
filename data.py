@@ -34,3 +34,9 @@ class Data:
     ]
 
     not_correct_ingredient_id = "61c0c5a71d1f82001bdccc6d"
+    message_authorization_error = "You should be authorised"
+    message_email_exist = "User with such email already exists"
+    message_user_exist = 'User already exists'
+    message_required_fields = "Email, password and name are required fields"
+    message_login_data_uncorrect = "email or password are incorrect"
+

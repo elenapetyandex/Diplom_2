@@ -25,7 +25,7 @@ class TestUserCreate:
                 "name": response_1.json()["user"]["name"]
             }
             result = ApiMethods.create_user(body)
-            assert result.status_code == 403 and result.json()["success"] is False and result.json()["message"] == 'User already exists'
+            assert result.status_code == 403 and result.json()["success"] is False and result.json()["message"] == Data.message_user_exist
 
         except KeyError as e:
             print(f'Error of first registration {e}')
@@ -40,4 +40,4 @@ class TestUserCreate:
             "name": name
         }
         response = ApiMethods.create_user(body)
-        assert response.status_code == 403 and response.json()["success"] is False and response.json()["message"] == "Email, password and name are required fields"
+        assert response.status_code == 403 and response.json()["success"] is False and response.json()["message"] == Data.message_required_fields

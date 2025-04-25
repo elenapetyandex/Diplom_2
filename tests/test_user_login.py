@@ -37,7 +37,7 @@ class TestUserLogin:
             "password": self.password
         }
         response_login = ApiMethods.login_user(body_1)
-        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
+        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == Data.message_login_data_uncorrect
 
     @allure.title('Получение кода 401 при логине зарегистрированного пользователя с пустым полем email.')
     def test_user_registrated_with_empty_email_field_login_get_401(self):
@@ -53,7 +53,7 @@ class TestUserLogin:
         }
         response_login = ApiMethods.login_user(body_1)
 
-        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
+        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == Data.message_login_data_uncorrect
 
     @allure.title('Получение кода 401 при логине зарегистрированного пользователя с пустым полем password.')
     def test_user_registrated_with_empty_password_field_login_get_401(self):
@@ -69,7 +69,7 @@ class TestUserLogin:
         }
         response_login = ApiMethods.login_user(body_1)
 
-        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
+        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == Data.message_login_data_uncorrect
 
     @allure.title('Получение кода 401 при логине зарегистрированного пользователя с пустыми полями.')
     def test_user_registrated_with_empty_required_fields_login_get_401(self):
@@ -85,7 +85,7 @@ class TestUserLogin:
         }
         response_login = ApiMethods.login_user(body_1)
 
-        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == "email or password are incorrect"
+        assert response_login.status_code == 401 and response_login.json()["success"] is False and response_login.json()["message"] == Data.message_login_data_uncorrect
 
     @allure.title('Получение кода 200 при логине зарегистрированного пользователя после изменения почты.')
     def test_user_login_after_patch_email_get_200(self):

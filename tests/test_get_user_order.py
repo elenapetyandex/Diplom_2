@@ -32,13 +32,13 @@ class TestGetUserOrder:
         response = get_create_user
         token = response.json()["accessToken"]
         response_1 = ApiMethods.get_order_list(token)
-        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == "You should be authorised"
+        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == Data.message_authorization_error
 
     @allure.title('Получение кода 401 при отсутсвии токена авторизации')
     def test_get_order_not_user_get_401(self):
         token = None
         response_1 = ApiMethods.get_order_list(token)
-        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == "You should be authorised"
+        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == Data.message_authorization_error
 
 
 

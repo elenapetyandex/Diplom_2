@@ -45,7 +45,7 @@ class TestPatchUserData:
 
         updated_data = {"email": email_registered_user}
         response_patch_user = ApiMethods.patch_user(access_token_second_user, updated_data)
-        assert response_patch_user.status_code == 403 and response_patch_user.json()["success"] is False and response_patch_user.json()["message"] == "User with such email already exists"
+        assert response_patch_user.status_code == 403 and response_patch_user.json()["success"] is False and response_patch_user.json()["message"] == Data.message_email_existapi
 
     @allure.title('Получение кода 401 при изменении имени незалогиненого зарегистрированного пользователя.')
     def test_path_name_not_logined_user_get_401(self, get_create_user):
@@ -53,7 +53,7 @@ class TestPatchUserData:
         access_token = response.json()["accessToken"]
         updated_data = {"name": Data.user_name}
         response_1 = ApiMethods.patch_user(access_token, updated_data)
-        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == "You should be authorised"
+        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == Data.message_authorization_error
 
     @allure.title('Получение кода 401 при изменении почты незалогиненого зарегистрированного пользователя.')
     def test_path_name_not_logined_user_get_401(self, get_create_user):
@@ -61,21 +61,21 @@ class TestPatchUserData:
         access_token = response.json()["accessToken"]
         updated_data = {"email": Data.user_email}
         response_1 = ApiMethods.patch_user(access_token, updated_data)
-        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == "You should be authorised"
+        assert response_1.status_code == 401 and response_1.json()["success"] is False and response_1.json()["message"] == Data.message_authorization_error
 
     @allure.title('Получение кода 401 при изменении почты незалогиненого незарегистрированного пользователя')
     def test_path_name_with_no_registered_user_get_401(self):
         access_token = None
         updated_data = {"email": Data.user_email}
         response = ApiMethods.patch_user(access_token, updated_data)
-        assert response.status_code == 401 and response.json()["success"] is False and response.json()["message"] == "You should be authorised"
+        assert response.status_code == 401 and response.json()["success"] is False and response.json()["message"] == Data.message_authorization_error
 
     @allure.title('Получение кода 401 при изменении имени незалогиненого незарегистрированного пользователя')
     def test_path_name_with_no_registered_user_get_401(self):
         access_token = None
         updated_data = {"name": Data.user_name}
         response = ApiMethods.patch_user(access_token, updated_data)
-        assert response.status_code == 401 and response.json()["success"] is False and response.json()["message"] == "You should be authorised"
+        assert response.status_code == 401 and response.json()["success"] is False and response.json()["message"] == Data.message_authorization_error
 
 
 
